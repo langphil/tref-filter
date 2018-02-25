@@ -16,9 +16,9 @@ This tool is a simple Python script to ingest multiple CSV files and filter them
 - Place raw files in /data
 - From the main directory
 
-'''
+```
 $ python tref.py
-'''
+```
 
 - File will be output to '/output'
 
