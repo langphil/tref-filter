@@ -1,7 +1,7 @@
 import pandas as pd
 import glob
 
-keywords = ['referendum']
+keywords = ['abortion']
 df_filtered = []
 
 # Concat multiple files into a single file
@@ -27,7 +27,8 @@ for kw in keywords:
 # Concatenate the array of datatables and drop duplicate rows
 df_res = pd.concat(df_filtered)
 df_res.drop_duplicates(subset=["text"], inplace=True)
+df_res.drop(df_res.columns[[0]], inplace=True, axis=1)
 
 # Save filtered dataframe to a CSV
 print "CSV's filtered and saved to the outputs folder"
-df_res.to_csv('./output/output.csv')
+df_res.to_csv('./output/output.csv',  index = False)
