@@ -1,7 +1,7 @@
 import pandas as pd
 import glob
 
-keywords = ['referendum']
+keywords = ['abortion', 'repeal', 'eight', 'baby', 'unborn', 'fintan']
 df_filtered = []
 
 # Concat multiple files into a single file
@@ -14,15 +14,20 @@ for filename in sorted(files):
 full_df = pd.concat(df_list)
 full_df.to_csv('./temp/output.csv')
 
-# Open the single file, turn into a DataFrame and filter for keywords
+# Open the single file, turn into a DataFrame, filter for keywords and append
+# to the array of datatables
 data = pd.read_csv('./temp/output.csv')
 df = pd.DataFrame(data)
 
 for kw in keywords:
+	df.text = df.text.str.lower()
 	filtered = df.loc[df['text'].str.contains(kw, na=False)]
 	df_filtered.append(filtered)
 
+# Concatenate the array of datatables and drop duplicate rows
 df_res = pd.concat(df_filtered)
+df_res.drop_duplicates(subset=["text"], inplace=True)
 
 # Save filtered dataframe to a CSV
+print "CSV's filtered and saved to the outputs folder"
 df_res.to_csv('./output/output.csv')
