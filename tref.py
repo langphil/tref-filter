@@ -1,7 +1,7 @@
 import pandas as pd
 import glob
 
-keywords = ['abortion']
+keywords = ['referendum']
 df_filtered = []
 
 # Concat multiple files into a single file
