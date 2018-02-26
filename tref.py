@@ -2,34 +2,41 @@ import pandas as pd
 import glob
 
 keywords = ['referendum']
+files = []
+df_concat = []
 df_filtered = []
 
-# Concat multiple files into a single file
-files = glob.glob("./data/*.csv")
-df_list = []
+# Opening multiple CSV's
+def open_files():
+	files.extend(glob.glob("./input/*.csv"))
 
-for filename in sorted(files):
-	df_list.append(pd.read_csv(filename))
+# Concat multiple CSV's into a single dataframe
+def concat_files():
+	for filename in sorted(files):
+		df_concat.append(pd.read_csv(filename))
 
-full_df = pd.concat(df_list)
-print full_df
-full_df.to_csv('./temp/output.csv')
+# Filter for keywords in the text column
+def keyword_filter():
+	for kw in keywords:
+		df_full.text = df_full.text.str.lower()
+		filtered = df_full.loc[df_full['text'].str.contains(kw, na=False)]
+		df_filtered.append(filtered)
 
-# Open the single file, turn into a DataFrame, filter for keywords and append
-# to the array of datatables
-data = pd.read_csv('./temp/output.csv')
-df = pd.DataFrame(data)
+# Drop duplicate rows and unnecessary columns
+def datatable_clean():
+	df_clean.drop_duplicates(subset=["text"], inplace=True)
+	df_clean.drop(df_clean.columns[[0]], inplace=True, axis=1)
 
-for kw in keywords:
-	df.text = df.text.str.lower()
-	filtered = df.loc[df['text'].str.contains(kw, na=False)]
-	df_filtered.append(filtered)
+# Process
+open_files()
+concat_files()
 
-# Concatenate the array of datatables and drop duplicate rows
-df_res = pd.concat(df_filtered)
-df_res.drop_duplicates(subset=["text"], inplace=True)
-df_res.drop(df_res.columns[[0]], inplace=True, axis=1)
+df_full = pd.concat(df_concat)
+keyword_filter()
 
-# Save filtered dataframe to a CSV
-print "CSV's filtered and saved to the outputs folder"
-df_res.to_csv('./output/output.csv',  index = False)
+df_clean = pd.concat(df_filtered)
+datatable_clean()
+
+
+df_clean.to_csv('./output/output.csv',  index = False)
+print "CSV's filtered and saved to the output folder"
