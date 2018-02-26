@@ -37,6 +37,5 @@ keyword_filter()
 df_clean = pd.concat(df_filtered)
 datatable_clean()
 
-
 df_clean.to_csv('./output/output.csv',  index = False)
 print "CSV's filtered and saved to the output folder"
