@@ -12,8 +12,8 @@ This tool is a simple Python script to ingest multiple CSV files and filter them
 
 ## Usage
 
-- Create directories: /data, /temp, /output
-- Place raw files in /data
+- Create directories: /input, /output
+- Place raw files in /input
 - From the main directory
 
 ```
