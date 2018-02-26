@@ -12,6 +12,7 @@ for filename in sorted(files):
 	df_list.append(pd.read_csv(filename))
 
 full_df = pd.concat(df_list)
+print full_df
 full_df.to_csv('./temp/output.csv')
 
 # Open the single file, turn into a DataFrame, filter for keywords and append
